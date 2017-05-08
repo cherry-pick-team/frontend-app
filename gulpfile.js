@@ -60,7 +60,7 @@ gulp.task('serve', () => {
 gulp.task('static', (cb) => {
   return gulp.src(src + 'static/**/*')
     .pipe($.size({title: 'static'}))
-    .pipe(gulp.dest(dist + 'static/'))
+    .pipe(gulp.dest(dist + 'assets/'))
 });
 
 gulp.task('watch', () => {
