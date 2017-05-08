@@ -35,9 +35,9 @@ gulp.task('html', () => {
 
 gulp.task('styles', () => {
   return gulp.src(src + 'styles/main.scss')
-    .pipe($.sourcemaps.init())
+    .pipe(isProduction ? $.emptyPipe() : $.sourcemaps.init())
     .pipe($.sass({outputStyle: isProduction ? 'compressed' : 'expanded'}))
-    .pipe($.sourcemaps.write())
+    .pipe(isProduction ? $.emptyPipe() : $.sourcemaps.write())
     .pipe(gulp.dest(dist + 'css/'))
     .pipe($.connect.reload())
 });

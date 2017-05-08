@@ -23,6 +23,7 @@
     "del": "^1.2.1",
     "gulp": "^3.8.11",
     "gulp-connect": "^5.0.0",
+    "gulp-empty-pipe": "^5.0.0",
     "gulp-jshint": "^2.0.4",
     "gulp-livereload": "^3.7.0",
     "gulp-load-plugins": "^1.4.0",
