@@ -1,0 +1,8 @@
+<div class="btn-groups l-h-1x">
+  {{#if items.length }}
+    <strong>Часто ищут: </strong>
+    {{#each items}}
+      <a href="/search/{{ query }}" class="btn btn-xs {{color}}">{{ query }}</a>
+    {{/each}}
+  {{/if}}
+</div>

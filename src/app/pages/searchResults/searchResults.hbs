@@ -1,0 +1,90 @@
+<div class="padding">
+  <div class="row-col">
+    <div class="col-sm-12">
+      <div class="p-l-md no-padding-xs">
+        <h2 class="page-title"><span class="text-muted">Поиск: </span>{{ query }}</h2>
+      </div>
+    </div>
+  </div>
+</div>
+{{#if loading}}
+  <h3 class="text-center">Идет загрузка...</h3>
+{{ else }}
+  {{#if items}}
+    {{#each items as |item itemKey|}}
+      <div>
+        <div class="m-b-1">
+          <div class="pos-rlt">
+            <div class="page-bg"
+                 style="background-image: url('{{ item.coverUrl }}');"></div>
+          </div>
+          <div class="padding pos-rlt">
+            <div class="row-col">
+              <div class="col-sm w w-auto-xs m-b">
+                <div class="item w r">
+                  <div class="item-media">
+                    <div class="item-media-content"
+                         style="background-image: url('{{ item.coverUrl }}');"></div>
+                  </div>
+                  <div class="item-overlay center">
+                    <button class="btn-playpause" data-play="playlist"
+                            data-playlist="search:{{ @root.query }}:{{ item.id }}">Play
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm">
+                <div class="p-l-md no-padding-xs">
+                  <div class="page-title">
+                    <h1 class="inline">{{ item.title }}</h1>
+                  </div>
+                  <h5 class="m-b">{{ item.singers }}</h5>
+                  {{#if item.albumTitle}}
+                    <h6 class="m-b"><span class="text-muted">Альбом</span> {{ item.albumTitle }}</h6>{{/if}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row-col padding">
+          <div class="col-lg-11 no-border-md">
+            <div class="pos-rlt row item-list item-list-xs item-list-li m-b">
+              {{#each chunks as |chunk chunkKey|}}
+                <div class="col-xs-12">
+                  <div class="item r">
+                    <div class="item-media">
+                      <div class="item-overlay center">
+                        <button class="btn-playpause"
+                                data-play="playlist-chunk"
+                                data-playlist="search:{{ @root.query }}:{{ item.id }}"
+                                data-play-id="search:{{ @root.query }}:{{ item.id }}:{{chunk.id}}"
+                                data-song-info="{{ item.json }}"
+                                data-chunk-info="{{ chunk.json }}"
+                        >
+                          Play
+                        </button>
+                      </div>
+                    </div>
+                    <div class="item-info">
+                      <div class="item-title text-ellipsis">
+                        {{#each chunk.words}}
+                          <span>{{ this }}</span><br/>
+                        {{/each}}
+                      </div>
+                      <div class="item-meta text-sm text-muted">
+                        <span class="item-meta-right"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {{/each}}
+            </div>
+          </div>
+          <div class="col-lg-1"></div>
+        </div>
+      </div>
+    {{/each}}
+  {{ else }}
+    <h3 class="text-center">Ничего не нашлось.</h3>
+  {{/if}}
+{{/if}}

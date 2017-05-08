@@ -1,0 +1,47 @@
+<div class="row-col">
+  <div class="col-lg-9 b-r no-border-md">
+    <div class="padding">
+      <div class="page-title m-b">
+        <h1 class="inline m-a-0">Популярные композиции</h1>
+        <span class="label label-lg white text-primary">топ-20</span>
+      </div>
+      <div class="row item-list item-list-md item-list-li m-b">
+        <div class="col-xs-12">
+          {{#each items}}
+            <div class="item r">
+              <div class="item-media">
+                <a class="item-media-content"
+                   style="background-image: url('{{ coverUrl }}');"></a>
+                <div class="item-overlay center">
+                  <button class="btn-playpause"
+                          data-play="playlist-chunk"
+                          data-playlist="popular"
+                          data-play-id="popular:{{ id }}:{{ chunkInfo.id }}"
+                          data-song-info="{{ json }}"
+                          data-chunk-info="{{ chunkInfoJson }}"
+                  >
+                    Play
+                  </button>
+                </div>
+              </div>
+              <div class="item-info">
+                <div class="item-title text-ellipsis">
+                  {{ title }}
+                  <small class="text-muted">{{ albumTitle }}</small>
+                </div>
+                <div class="item-author text-sm text-ellipsis ">
+                  <span class="text-muted">{{ singers }}</span>
+                </div>
+                <div class="text-right text-muted">
+                  <i class="fa fa-search"></i> {{ count }}
+                </div>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-lg-3"></div>
+</div>

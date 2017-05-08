@@ -1,0 +1,17 @@
+<ul class="nav" data-ui-nav>
+  {{#each menuItems}}
+    <li class="nav-header hidden-folded m-t">
+      <span class="text-xs text-muted">{{ title }}</span>
+    </li>
+    {{#each items}}
+      <li>
+        <a href="{{ url }}" data-route="{{ @key }}">
+      <span class="nav-icon">
+        <i class="material-icons">{{ icon }}</i>
+      </span>
+          <span class="nav-text">{{ title }}</span>
+        </a>
+      </li>
+    {{/each}}
+  {{/each}}
+</ul>
