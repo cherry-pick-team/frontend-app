@@ -20,8 +20,6 @@ export default Mn.View.extend({
 
   clickPlay: function (e) {
     const $curBut = $$(e.currentTarget);
-    console.log($curBut);
-    console.log(this.player);
     const playlist = $curBut.data('playlist');
     const id = $curBut.data('play-id');
 
@@ -59,7 +57,6 @@ export default Mn.View.extend({
       const currentTrack = this.player.mepGetCurrentTrack();
       if (currentTrack && currentTrack.playlist === playlist) {
         if (id === currentTrack.id) {
-          console.log('current track');
           this.player.media.paused ? this.player.play() : this.player.pause();
         }
         else {
@@ -82,7 +79,7 @@ export default Mn.View.extend({
     }
     else {
       this.initPlayer(getChunksInfo(playlist));
-      this.player.mepPlay();
+      this.player.mepSelect(this.player.find(id), true);
     }
   },
 

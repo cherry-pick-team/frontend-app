@@ -1,13 +1,11 @@
-<div class="row-col">
-  <div class="col-lg-9 b-r no-border-md">
-    <div class="padding">
-      <div class="page-title m-b">
-        <h1 class="inline m-a-0">Популярные композиции</h1>
-        <span class="label label-lg white text-primary">топ-20</span>
-      </div>
-      <div class="row item-list item-list-md item-list-li m-b">
-        <div class="col-xs-12">
-          {{#each items}}
+<div class="collection-page" data-page="{{ page }}">
+  {{#if loading}}
+    <h3 class="text-center">Идет загрузка...</h3>
+  {{ else }}
+    {{#if items}}
+      <div class="row">
+        {{#each items as |item itemKey|}}
+          <div class="col-xs-6 col-sm-6 col-md-3">
             <div class="item r">
               <div class="item-media">
                 <a class="item-media-content"
@@ -15,8 +13,8 @@
                 <div class="item-overlay center">
                   <button class="btn-playpause"
                           data-play="playlist-chunk"
-                          data-playlist="popular"
-                          data-play-id="popular:{{ id }}:{{ chunkInfo.id }}"
+                          data-playlist="collectionPage:{{ page }}:{{ id }}"
+                          data-play-id="collectionPage:{{ page }}:{{ id }}:{{ chunkInfo.id }}"
                           data-song-info="{{ json }}"
                           data-chunk-info="{{ chunkInfoJson }}"
                   >
@@ -32,16 +30,15 @@
                 <div class="item-author text-sm text-ellipsis">
                   <span class="text-muted">{{ singers }}</span>
                 </div>
-                <div class="text-right text-muted">
-                  <i class="fa fa-search"></i> {{ count }}
-                </div>
               </div>
             </div>
-          {{/each}}
-        </div>
+          </div>
+        {{/each}}
       </div>
-    </div>
-  </div>
-</div>
-<div class="col-lg-3"></div>
+    {{ else }}
+      <h3 class="text-center">Не удалось загрузить.
+        <a href="#" class="reload btn white">Повторить <i class="material-icons">cached</i></a>
+      </h3>
+    {{/if}}
+  {{/if}}
 </div>
