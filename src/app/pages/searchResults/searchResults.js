@@ -35,22 +35,10 @@ export default Mn.View.extend({
 
   setItems: function (items) {
     this.options.items = items.map((item) => {
-      const chunks = item.chunks;
+      const chunks = item.lyrics_chunks;
       const lyrics = item.timestamp_lyrics;
 
-      const resChunks = chunks.map(([start, end]) => {
-        const keys = Object.keys(lyrics);
-        const key = keys.indexOf(String(start));
-
-        const words = [];
-
-        // TODO: rewrite me to super-modern-js <3
-        for (let i = key - 1; i < key + 2; i++) {
-          if (i >= 0 && i < keys.length) {
-            words.push(lyrics[keys[i]]);
-          }
-        }
-
+      const resChunks = chunks.map(({start, end, lyrics: words}) => {
         const chunkInfo = {
           id: String(start) + ':' + String(end),
           from: start,
