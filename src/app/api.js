@@ -37,7 +37,7 @@ const api = {
 
   getCollection: function(onComplete, page = 1, limit = 20) {
     $$.ajax({
-      url: baseUri + 'song/popular', // TODO:!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      url: baseUri + 'song/all',
       data: {
         page,
         limit,
