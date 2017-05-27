@@ -21,7 +21,7 @@ DEALINGS IN THE SOFTWARE.
 
   var WORKER_PATH = '/assets/recorderjs/recorderWorker.js';
 
-  var Recorder = function(source, cfg){
+  var Recorder = function(source, cfg, onProcess = function() {}){
     var config = cfg || {};
     var bufferLen = config.bufferLen || 4096;
     this.context = source.context;
@@ -43,12 +43,14 @@ DEALINGS IN THE SOFTWARE.
 
     this.node.onaudioprocess = function(e){
       if (!recording) return;
+      var buffer = [
+        e.inputBuffer.getChannelData(0),
+        e.inputBuffer.getChannelData(1)
+      ];
+      onProcess(buffer);
       worker.postMessage({
         command: 'record',
-        buffer: [
-          e.inputBuffer.getChannelData(0),
-          e.inputBuffer.getChannelData(1)
-        ]
+        buffer
       });
     }
 

@@ -165,7 +165,7 @@ export default Mn.View.extend({
     this.analyserNode = this.audioContext.createAnalyser();
     this.analyserNode.fftSize = 2048;
     this.inputPoint.connect(this.analyserNode);
-    this.audioRecorder = new window.Recorder(this.inputPoint);
+    this.audioRecorder = new window.Recorder(this.inputPoint, {}, this.onVoiceProcess.bind(this));
 
     // this.zeroGain = this.audioContext.createGain();
     // this.zeroGain.gain.value = 0.0;
@@ -176,6 +176,18 @@ export default Mn.View.extend({
     this.audioRecorder.record();
 
     $$('#button-voice-stop').unbind('click').bind('click', this.onClickVoiceStop.bind(this));
+  },
+
+  onVoiceProcess: function (buffers) {
+    const input = buffers[0];
+    let sum = 0;
+    for (let i = 0; i < input.length; ++i) {
+      sum += input[i] * input[i];
+    }
+    let level = Math.sqrt(sum / input.length) * 10000;
+
+    $$('#voice-sound-progress').width(`${5 + level}%`);
+    console.log(level);
   },
 
   onClickVoiceStop: function (e) {
