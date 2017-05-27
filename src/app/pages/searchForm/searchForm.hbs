@@ -6,12 +6,19 @@
       Искать музыку стало просто как никогда! <br/> Несколько слов &mdash; и та самая песня уже звучит в ваших
       наушниках!
     </p>
-    <form>
-      <div class="input-group input-group-lg p-b-lg">
-        <input type="text" class="form-control" placeholder="{{ inputPlaceholder }}">
-        <span class="input-group-btn"><button class="btn b-a no-shadow indigo" type="submit">Поиск</button></span>
+    <div class="row p-b-md">
+      <div class="col-md-10">
+        <form>
+          <div class="input-group input-group-lg p-b-md">
+            <input type="text" class="form-control" placeholder="{{ inputPlaceholder }}">
+            <span class="input-group-btn"><button class="btn b-a no-shadow indigo" id="button-search" type="submit">Поиск</button></span>
+          </div>
+        </form>
       </div>
-    </form>
+      <div class="col-md-2 text-center" id="button-voice">
+        <button class="btn btn-lg btn-block white"><i class="fa fa-microphone"></i></button>
+      </div>
+    </div>
     <div id="popular-queries" style="min-height: 2em;"></div>
   </div>
 </div>

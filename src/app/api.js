@@ -35,7 +35,7 @@ const api = {
     })
   },
 
-  getCollection: function(onComplete, page = 1, limit = 20) {
+  getCollection: function (onComplete, page = 1, limit = 20) {
     $$.ajax({
       url: baseUri + 'song/all',
       data: {
@@ -50,6 +50,19 @@ const api = {
   getCropUrl: function (id, from = 0, to = 200000) {
     // return 'http://api.soundcloud.com/tracks/269944843/stream?client_id=a10d44d431ad52868f1bce6d36f5234c&rand=' + id;
     return '/crop/get_song/?id=' + id + '&from_ms=' + String(from) + '&to_ms=' + String(to);
+  },
+
+  sendVoice: function (blob, onComplete) {
+    const formData = new window.FormData();
+    formData.append('voice', blob, 'my.wav');
+    $$.ajax({
+      url: baseUri + 'search/voice',
+      data: formData,
+      processData: false,
+      contentType: false,
+      method: 'POST',
+      complete: onComplete
+    });
   }
 };
 

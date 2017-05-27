@@ -42,12 +42,14 @@ export default Mn.View.extend({
 
   ui: {
     input: 'input',
-    button: 'button',
+    button: '#button-search',
     form: 'form',
+    buttonVoice: '#button-voice',
   },
 
   events: {
     'submit @ui.form': 'onSubmit',
+    'click @ui.buttonVoice': 'onClickVoice',
   },
 
   initialize: function () {
@@ -102,6 +104,11 @@ export default Mn.View.extend({
     }
   },
 
+  onClickVoice: function (e) {
+    this.initAudio();
+    $$('.modal-voice-recording').modal('show');
+  },
+
   renderTriangles: function () {
     const triangles = new Trianglify({
       width: window.innerWidth,
@@ -115,5 +122,90 @@ export default Mn.View.extend({
 
   onDestroy: function () {
     $$(window).off('resize', this.renderTriangles);
+  },
+
+  initAudio: function () {
+    if (!navigator.getUserMedia) {
+      navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+    }
+    if (!navigator.cancelAnimationFrame) {
+      navigator.cancelAnimationFrame = navigator.webkitCancelAnimationFrame || navigator.mozCancelAnimationFrame;
+    }
+    if (!navigator.requestAnimationFrame) {
+      navigator.requestAnimationFrame = navigator.webkitRequestAnimationFrame || navigator.mozRequestAnimationFrame;
+    }
+
+    navigator.getUserMedia(
+      {
+        'audio': {
+          'mandatory': {
+            'googEchoCancellation': 'false',
+            'googAutoGainControl': 'false',
+            'googNoiseSuppression': 'false',
+            'googHighpassFilter': 'false'
+          },
+          'optional': []
+        },
+      }, this.onAudioGetStream.bind(this), function (e) {
+        console.log(e);
+      });
+
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    this.audioContext = new window.AudioContext();
+  },
+
+  onAudioGetStream: function (stream) {
+    console.log(stream);
+    this.stream = stream;
+
+    this.inputPoint = this.audioContext.createGain();
+    this.realAudioInput = this.audioContext.createMediaStreamSource(stream);
+    this.audioInput = this.realAudioInput;
+    this.audioInput.connect(this.inputPoint);
+    this.analyserNode = this.audioContext.createAnalyser();
+    this.analyserNode.fftSize = 2048;
+    this.inputPoint.connect(this.analyserNode);
+    this.audioRecorder = new window.Recorder(this.inputPoint);
+
+    // this.zeroGain = this.audioContext.createGain();
+    // this.zeroGain.gain.value = 0.0;
+    // this.inputPoint.connect(this.zeroGain);
+    // this.zeroGain.connect(this.audioContext.destination);
+
+    this.audioRecorder.clear();
+    this.audioRecorder.record();
+
+    $$('#button-voice-stop').unbind('click').bind('click', this.onClickVoiceStop.bind(this));
+  },
+
+  onClickVoiceStop: function (e) {
+    $$('.modal-voice-recording').modal('hide');
+    $$('.modal-voice-handling').modal('show');
+    this.audioRecorder.stop();
+    this.audioRecorder.getBuffers(function (buffers) {
+      this.stream.getTracks().forEach((track) => {
+        track.stop();
+      });
+      this.audioRecorder.exportWAV(this.onVoiceRecord.bind(this));
+      this.audioContext.close();
+    }.bind(this));
+  },
+
+  onVoiceRecord: function (blob) {
+    api.sendVoice(blob, function (data, status) {
+      if (status === 'success') {
+        const res = data.responseJSON;
+        if (res.length > 0) {
+          const searchQuery = res.shift();
+          if (searchQuery.length > 0) {
+            $$('.modal-voice-handling').modal('hide');
+            Bn.history.navigate('/search/' + searchQuery, true);
+            return;
+          }
+        }
+      }
+      $$('.modal-voice-handling').modal('hide');
+      $$('.modal-voice-error').modal('show');
+    });
   }
 })
