@@ -7,6 +7,8 @@ export default Mn.AppRouter.extend({
     'search/:query': 'pageSearch',
     'trends': 'pageTrends',
     'collection': 'pageCollection',
+
+    '*notFound': 'pageNotFound',
   },
 
   onRoute: function (name, path, args) {

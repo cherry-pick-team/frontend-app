@@ -41,7 +41,7 @@ export default Mn.View.extend({
     Bn.history.navigate($$(e.currentTarget).attr('href'), true);
   },
 
-  onClickPlay: function(e) {
+  onClickPlay: function (e) {
     player.clickPlay(e);
   },
 
@@ -81,6 +81,10 @@ export default Mn.View.extend({
     this.showPage('collection', () => {
       return new CollectionPage();
     });
+  },
+
+  pageNotFound: function () {
+    Bn.history.navigate('', true);
   },
 
   onRender: function () {
