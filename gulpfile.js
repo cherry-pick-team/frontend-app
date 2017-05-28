@@ -51,7 +51,8 @@ gulp.task('serve', () => {
     },
     middleware: (connect, opt) => {
       return [history(), require('http-proxy-middleware')(['/api', '/crop'], {
-        target: 'http://zsong.ru',
+        target: 'https://zsong.ru',
+        changeOrigin: true,
       })]
     }
   })
