@@ -78,7 +78,7 @@ const api = {
 
       this._authCallbacks.forEach((fn) => {
         if (typeof fn === 'function') {
-          fn();
+          fn(data, status);
         }
       });
     }.bind(this);
