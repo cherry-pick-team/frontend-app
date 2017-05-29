@@ -3,6 +3,7 @@ import Mn from 'backbone.marionette'
 import Trianglify from 'trianglify'
 import template from './searchForm.hbs'
 import popularQueriesTemplate from './popularQueries.hbs'
+import {throttle} from 'lodash'
 
 import api from '../../api'
 
@@ -53,7 +54,7 @@ export default Mn.View.extend({
   },
 
   initialize: function () {
-    $$(window).on('resize', this.renderTriangles.bind(this));
+    $$(window).on('resize', throttle(this.renderTriangles.bind(this), 60));
 
     this.setPopular([]);
     this.loadPopular();
@@ -114,7 +115,7 @@ export default Mn.View.extend({
       width: window.innerWidth,
       height: window.innerHeight,
       /*jshint camelcase: false */
-      x_colors: ['#553d87', '#794ad6', '#fff', '#F2F2F2', '#553d87', '#794ad6'],
+      x_colors: ['#785bb5', '#a788e4', '#fff', '#F2F2F2', '#785bb5', '#a788e4'],
     });
 
     this.$el.find('#search-form-background').css('background-image', 'url(' + triangles.png() + ')');
