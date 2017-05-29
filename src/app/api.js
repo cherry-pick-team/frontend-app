@@ -90,6 +90,14 @@ const api = {
     });
   },
 
+  logout: function () {
+    $$.ajax({
+      url: '/auth/logout',
+      method: 'GET',
+      complete: this.checkAuth.bind(this)
+    });
+  },
+
   isAuth: function () {
     return this._auth;
   },
