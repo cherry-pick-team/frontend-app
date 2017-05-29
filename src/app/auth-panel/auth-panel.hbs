@@ -14,4 +14,17 @@
       </div>
     </div>
   </div>
+{{ else }}
+  <div data-flex-no-shrink>
+    <div class="nav-fold dropup">
+      <a href="/auth/fb/redirect">
+              <span class="pull-left">
+                <span class="fa fa-2x fa-facebook"></span>
+              </span>
+        <span class="clear hidden-folded p-x p-y-xs">
+                <span class="small block _500 text-ellipsis">Войти через Facebook</span>
+              </span>
+      </a>
+    </div>
+  </div>
 {{/if}}
