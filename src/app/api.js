@@ -63,7 +63,51 @@ const api = {
       method: 'POST',
       complete: onComplete
     });
+  },
+
+  checkAuth: function () {
+    const callback = function (data, status) {
+      if (status === 'success' && data.responseJSON && data.responseJSON.user) {
+        this._auth = true;
+        this._user = data.responseJSON.user;
+      }
+      else {
+        this._auth = false;
+        this._user = {};
+      }
+
+      this._authCallbacks.forEach((fn) => {
+        if (typeof fn === 'function') {
+          fn();
+        }
+      });
+    }.bind(this);
+
+    $$.ajax({
+      url: '/auth/me',
+      method: 'GET',
+      complete: callback
+    });
+  },
+
+  isAuth: function () {
+    return this._auth;
+  },
+
+  getUser: function () {
+    return this._user;
+  },
+
+  addAuthCallback: function (callback) {
+    this._authCallbacks.push(callback);
   }
 };
+
+api._auth = false;
+api._user = false;
+api._authCallbacks = [];
+api.isAuth = api.isAuth.bind(api);
+api.getUser = api.getUser.bind(api);
+api.addAuthCallback = api.addAuthCallback.bind(api);
 
 export default api;

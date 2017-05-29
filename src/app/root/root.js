@@ -7,8 +7,10 @@ import SearchFormPage from '../pages/searchForm/searchForm'
 import SearchResultsPage from '../pages/searchResults/searchResults'
 import TrendsPage from '../pages/trends/trends'
 import CollectionPage from '../pages/collection/collection'
+import AuthPanel from '../auth-panel/auth-panel'
 
 import player from '../player'
+import api from '../api'
 
 const $$ = Bn.$;
 
@@ -22,6 +24,7 @@ export default Mn.View.extend({
     menu: '#menu',
     content: '#page-content',
     player: '#player',
+    auth: '#auth-panel',
   },
 
   events: {
@@ -34,6 +37,16 @@ export default Mn.View.extend({
       this.$el.find('#aside').toggleClass('app-aside-player', !!playerVisible);
       this.$el.find('#page-content').toggleClass('page-content-player', !!playerVisible);
     }.bind(this));
+
+    api.addAuthCallback(function (data, status) {
+      if (status === 'success' && data.responseJSON && data.responseJSON.user) {
+        this.changeAuth(data.responseJSON.user);
+      }
+      else {
+        this.changeAuth(null);
+      }
+    }.bind(this));
+    api.checkAuth();
   },
 
   onClickItem: function (e) {
@@ -95,5 +108,10 @@ export default Mn.View.extend({
   onRoute: function (name, path, args) {
     const route = path.split('/').shift();
     this.getMenu().setActive(route);
+  },
+
+  changeAuth: function (user) {
+    const auth = new AuthPanel({user});
+    this.showChildView('auth', auth);
   }
 })

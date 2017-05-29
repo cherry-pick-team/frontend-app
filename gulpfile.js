@@ -50,7 +50,7 @@ gulp.task('serve', () => {
       port: 35728
     },
     middleware: (connect, opt) => {
-      return [history(), require('http-proxy-middleware')(['/api', '/crop'], {
+      return [history(), require('http-proxy-middleware')(['/api', '/crop', '/auth'], {
         target: 'https://zsong.ru',
         changeOrigin: true,
       })]
