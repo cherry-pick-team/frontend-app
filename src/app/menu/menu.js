@@ -12,7 +12,13 @@ export default Mn.View.extend({
   },
 
   setActive: function (id) {
+    const newActive = this.$el.find('[data-route="' + id + '"]');
+
+    if (newActive.length === 0) {
+      return;
+    }
+
     this.$el.find('[data-route]').parents('li').removeClass('active');
-    this.$el.find('[data-route=' + id + ']').parent('li').addClass('active');
+    newActive.parent('li').addClass('active');
   }
 })
