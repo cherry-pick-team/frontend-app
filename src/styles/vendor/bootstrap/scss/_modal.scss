@@ -38,9 +38,14 @@
 
 // Shell div to position the modal with bottom padding
 .modal-dialog {
-  position: relative;
-  width: auto;
-  margin: $modal-dialog-margin;
+  min-height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: auto;
+  @media(max-width: 768px) {
+    min-height: calc(100vh - 20px);
+  }
 }
 
 // Actual modal
