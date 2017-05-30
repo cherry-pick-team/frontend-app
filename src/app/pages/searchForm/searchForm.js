@@ -209,10 +209,35 @@ export default Mn.View.extend({
       if (status === 'success') {
         const res = data.responseJSON;
         if (res.length > 0) {
-          const searchQuery = res.shift();
-          if (searchQuery.length > 0) {
-            $$('.modal-voice-handling').modal('hide');
-            Bn.history.navigate('/search/' + searchQuery, true);
+          $$('.modal-voice-handling').modal('hide');
+          if (res.length === 1) {
+            const searchQuery = res.shift();
+            if (searchQuery.query.length > 0) {
+              Bn.history.navigate('/search/' + searchQuery.query, true);
+              return;
+            }
+          }
+          else {
+            const songsWord = (num) => {
+              const r100 = num % 100;
+              const r10 = num % 10;
+              if(r10 >= 2 && r10 <= 4 && (r100 < 12 || r100 > 14)) {
+                return 'песни';
+              }
+              else if(r10 === 1 && r100 !== 11) {
+                return 'песня';
+              }
+              return 'песен';
+            };
+            const $queries = res.map(function (searchQuery) {
+              const {songs, query} = searchQuery;
+              return $$('<a href="/search/' + query + '" data-route="/search/' + query + '"/>').addClass('btn white btn-lg btn-block')
+                .text(`${query} (${songs} ${songsWord(songs)})`).click(function() {
+                  $$('.modal-voice-results').modal('hide');
+                });
+            });
+            $$('#modal-voice-results-part-queries').html('').append($queries);
+            $$('.modal-voice-results').modal('show');
             return;
           }
         }
