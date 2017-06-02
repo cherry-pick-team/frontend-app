@@ -66,6 +66,7 @@ export default Mn.View.extend({
           return singer.name;
         }).join(', '),
         songUrl: api.getCropUrl(item.mongo_id),
+        like: item.like,
       };
       itemInfo.json = JSON.stringify(itemInfo);
 
