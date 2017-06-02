@@ -138,6 +138,7 @@ window.mep = window.mep || {};
 		defaultAudioHeight: 0,
 		enableAutosize: false,
 		features: [
+			'meplike',
 			'mepartwork',
 			'mepcurrentdetails',
 			'mepprevioustrack',
