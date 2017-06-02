@@ -120,6 +120,7 @@ export default Mn.View.extend({
     }).find('audio, video')[0].player;
     this.player.$node.on('play', this.updateStatus.bind(this));
     this.player.$node.on('pause', this.updateStatus.bind(this));
+    this.player.$node.on('like.mep', this.onLike.bind(this));
   },
 
   updateStatus: function () {
@@ -133,6 +134,10 @@ export default Mn.View.extend({
         el.toggleClass('is-playing', !this.player.media.paused).parent().addClass('active');
       });
     }
+  },
+
+  onLike: function (trackId) {
+    console.log(trackId);
   },
 
   hide: function () {
