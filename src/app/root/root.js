@@ -7,6 +7,7 @@ import SearchFormPage from '../pages/searchForm/searchForm'
 import SearchResultsPage from '../pages/searchResults/searchResults'
 import TrendsPage from '../pages/trends/trends'
 import CollectionPage from '../pages/collection/collection'
+import UserLikesPage from '../pages/userLikes/userLikes'
 import AuthPanel from '../auth-panel/auth-panel'
 
 import player from '../player'
@@ -93,6 +94,12 @@ export default Mn.View.extend({
   pageCollection: function () {
     this.showPage('collection', () => {
       return new CollectionPage();
+    });
+  },
+
+  pageUserLikes: function () {
+    this.showPage('likes', () => {
+      return new UserLikesPage();
     });
   },
 

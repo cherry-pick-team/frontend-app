@@ -1,0 +1,48 @@
+<div class="padding">
+  <div class="row-col">
+    <div class="col-sm-12">
+      <div class="p-l-md no-padding-xs">
+        <h2 class="page-title">Вам понравилось</h2>
+      </div>
+    </div>
+  </div>
+</div>
+{{#if loading}}
+  <h3 class="text-center">Идет загрузка...</h3>
+{{ else }}
+  {{#if items}}
+    {{#each items as |item itemKey|}}
+      <div class="item r">
+        <div class="item-media">
+          <a class="item-media-content"
+             style="background-image: url('{{ coverUrl }}');"></a>
+          <div class="item-overlay center">
+            <button class="btn-playpause"
+                    data-play="playlist-chunk"
+                    data-playlist="popular"
+                    data-play-id="popular:{{ id }}:{{ chunkInfo.id }}"
+                    data-song-info="{{ json }}"
+                    data-chunk-info="{{ chunkInfoJson }}"
+            >
+              Play
+            </button>
+          </div>
+        </div>
+        <div class="item-info">
+          <div class="item-title text-ellipsis">
+            {{ title }}
+            <small class="text-muted">{{ albumTitle }}</small>
+          </div>
+          <div class="item-author text-sm text-ellipsis">
+            <span class="text-muted">{{ singers }}</span>
+          </div>
+          <div class="text-right text-muted">
+            <i class="fa fa-search"></i> {{ count }}
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  {{ else }}
+    <h3 class="text-center">Здесь появятся ваши лайки.</h3>
+  {{/if}}
+{{/if}}

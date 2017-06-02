@@ -47,6 +47,18 @@ const api = {
     })
   },
 
+  getLikes: function (onComplete, page = 1, limit = 20) {
+    $$.ajax({
+      url: baseUri + 'likes',
+      data: {
+        page,
+        limit
+      },
+      method: 'GET',
+      complete: onComplete
+    });
+  },
+
   getCropUrl: function (id, from = 0, to = 200000) {
     // return 'http://api.soundcloud.com/tracks/269944843/stream?client_id=a10d44d431ad52868f1bce6d36f5234c&rand=' + id;
     return '/crop/get_song/?id=' + id + '&from_ms=' + String(from) + '&to_ms=' + String(to);
