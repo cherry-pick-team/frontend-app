@@ -43,7 +43,7 @@ export default Mn.View.extend({
           playlist,
           title: songInfo.title,
           except: '',
-          link: '',
+          link: songInfo.coverUrl,
           thumb: {src: songInfo.coverUrl,},
           src: chunkInfo.streamUrl,
           meta: {
