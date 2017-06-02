@@ -102,6 +102,7 @@ export default Mn.View.extend({
         tracklist: '.tracks'
       },
       features: [
+        'meplike',
         'mepartwork',
         'mepcurrentdetails',
         'mepplaylist',
