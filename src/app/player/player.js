@@ -1,6 +1,7 @@
 import Bn from 'backbone'
 import Mn from 'backbone.marionette'
 import template from './player.hbs'
+import api from '../api'
 
 const $$ = Bn.$;
 
@@ -48,7 +49,8 @@ export default Mn.View.extend({
           src: chunkInfo.streamUrl,
           meta: {
             author: songInfo.singers,
-          }
+          },
+          like: songInfo.like,
         };
       });
     };
@@ -136,8 +138,19 @@ export default Mn.View.extend({
     }
   },
 
-  onLike: function (trackId) {
-    console.log(trackId);
+  onLike: function (e, trackId) {
+    const $track = $$('[data-play-id="' + trackId + '"]');
+    const trackData = $track.data('song-info');
+
+    if (typeof trackData !== 'undefined' && trackData.id) {
+      const up = !trackData.like;
+      api.like(function (data, status) {
+        if (status === 'success' && data.responseJSON && data.responseJSON.result) {
+          trackData.like = up;
+          $$('.mejs-like-button').toggleClass('is-like', up);
+        }
+      }, trackData.id, up);
+    }
   },
 
   hide: function () {

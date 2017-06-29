@@ -53,7 +53,7 @@ export default Mn.View.extend({
       });
 
       const itemInfo = {
-        id: item.mongo_id,
+        id: item.id,
         coverUrl: item.album.cover_url,
         title: item.song.title,
         albumTitle: item.album.name,

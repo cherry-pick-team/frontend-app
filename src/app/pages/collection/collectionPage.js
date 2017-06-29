@@ -58,7 +58,7 @@ export default Mn.View.extend({
       const lyrics = item.timestamp_lyrics;
 
       const itemInfo = {
-        id: item.mongo_id,
+        id: item.id,
         coverUrl: item.album.cover_url,
         title: item.song.title,
         albumTitle: item.album.name,

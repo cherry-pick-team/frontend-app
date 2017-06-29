@@ -59,6 +59,15 @@ const api = {
     });
   },
 
+  like: function (onComplete, songId, up = true) {
+    $$.ajax({
+      url: baseUri + 'song/' + songId + '/like?up=' + (up ? '1' : '0'),
+      data: {},
+      method: 'POST',
+      complete: onComplete,
+    });
+  },
+
   getCropUrl: function (id, from = 0, to = 200000) {
     // return 'http://api.soundcloud.com/tracks/269944843/stream?client_id=a10d44d431ad52868f1bce6d36f5234c&rand=' + id;
     return '/crop/get_song/?id=' + id + '&from_ms=' + String(from) + '&to_ms=' + String(to);
