@@ -29,7 +29,7 @@ export default Mn.View.extend({
   },
 
   events: {
-    'click a[data-route]': 'onClickItem',
+    'click [data-route]': 'onClickItem',
     'click [data-play]': 'onClickPlay',
   },
 

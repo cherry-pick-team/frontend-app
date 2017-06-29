@@ -148,7 +148,6 @@ export default Mn.View.extend({
           'optional': []
         },
       }, this.onAudioGetStream.bind(this), function (e) {
-        console.log(e);
       });
 
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -156,7 +155,6 @@ export default Mn.View.extend({
   },
 
   onAudioGetStream: function (stream) {
-    console.log(stream);
     this.stream = stream;
 
     this.inputPoint = this.audioContext.createGain();
@@ -188,7 +186,6 @@ export default Mn.View.extend({
     let level = Math.sqrt(sum / input.length) * 10000;
 
     $$('#voice-sound-progress').width(`${5 + level}%`);
-    console.log(level);
   },
 
   onClickVoiceStop: function (e) {
@@ -230,13 +227,73 @@ export default Mn.View.extend({
               return 'песен';
             };
             const $queries = res.map(function (searchQuery) {
-              const {songs, query} = searchQuery;
-              return $$('<a href="/search/voice/' + query + '" data-route="/search/voice/' + query + '"/>').addClass('btn white btn-lg btn-block')
-                .text(`${query} (${songs} ${songsWord(songs)})`).click(function () {
-                  $$('.modal-voice-results').modal('hide');
-                });
+              const {songs, query, full_info: fullInfo = null} = searchQuery;
+
+              if (songs === 0) {
+                return '';
+              }
+
+              const href = '/search/voice/' + query;
+
+              let albumUrl = '/static/no_cover_2.png';
+              let authors = [];
+              let titles = [];
+
+              if (fullInfo && fullInfo.length > 0) {
+                albumUrl = fullInfo[0].album.cover_url;
+
+                for (let i = 0; i < fullInfo.length; i++) {
+                  if (authors.indexOf(fullInfo[i].author) < 0) {
+                    authors.push(fullInfo[i].author);
+                  }
+
+                  if (titles.indexOf(fullInfo[i].title) < 0 && titles.length < 4) {
+                    titles.push(fullInfo[i].title);
+                  }
+
+                  if (authors.length >= 3) {
+                    break;
+                  }
+                }
+
+                authors = authors.join(', ');
+                titles = titles.join(', ');
+              }
+
+              return $$('<div></div>').addClass('col-xs-12').append($$('<div></div>').addClass('item r').append(
+                $$('<div></div>').addClass('item-media').append(
+                  $$('<a></a>').addClass('item-media-content').attr('href', href).data('route', href)
+                    .css('background-image', 'url(' + albumUrl + ')')
+                ),
+                $$('<div></div>').addClass('item-info').append(
+                  $$('<div></div>').addClass('item-title text-ellipsis').append(
+                    $$('<a></a>').attr('href', href).append(
+                      $$('<span></span>').text(query), ' ',
+                      $$('<span></span>').addClass('text-muted').text(`${songs} ${songsWord(songs)}`)
+                    )
+                  ),
+                  $$('<div></div>').addClass('item-author text-ellipsis').append(
+                    $$('<a></a>').attr('href', href).text(authors)
+                  ),
+                  $$('<div></div>').addClass('item-author text-sm text-muted text-ellipsis').append(
+                    $$('<a></a>').attr('href', href).text(titles)
+                  )
+                )
+              )).click(function (e) {
+                e.preventDefault();
+                $$('.modal-voice-results').modal('hide');
+                Bn.history.navigate(href, true);
+              });
             });
-            $$('#modal-voice-results-part-queries').html('').append($queries);
+
+            const $itemList = $$('<div></div>').addClass('row item-list item-list-md').css({
+              'text-align': 'left',
+              'max-height': '400px',
+              'overflow-y': 'scroll',
+              'cursor': 'pointer'
+            }).append($queries);
+
+            $$('#modal-voice-results-part-queries').html('').append($itemList);
             $$('.modal-voice-results').modal('show');
             return;
           }
