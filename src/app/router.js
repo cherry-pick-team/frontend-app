@@ -5,6 +5,7 @@ export default Mn.AppRouter.extend({
     '': 'pageSearchForm',
     'search': 'pageSearchForm',
     'search/:query': 'pageSearch',
+    'search/voice/:query': 'pageSearchVoice',
     'trends': 'pageTrends',
     'collection': 'pageCollection',
     'likes': 'pageUserLikes',

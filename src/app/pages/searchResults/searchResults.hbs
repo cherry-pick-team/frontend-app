@@ -2,7 +2,9 @@
   <div class="row-col">
     <div class="col-sm-12">
       <div class="p-l-md no-padding-xs">
-        <h2 class="page-title"><span class="text-muted">Поиск: </span>{{ query }}</h2>
+        <h2 class="page-title"><span class="text-muted">
+          {{#if voice}}Голосовой поиск{{ else }}Поиск{{/if}}: </span>{{ query }}
+        </h2>
       </div>
     </div>
   </div>

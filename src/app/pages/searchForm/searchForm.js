@@ -213,7 +213,7 @@ export default Mn.View.extend({
           if (res.length === 1) {
             const searchQuery = res.shift();
             if (searchQuery.query.length > 0) {
-              Bn.history.navigate('/search/' + searchQuery.query, true);
+              Bn.history.navigate('/search/voice/' + searchQuery.query, true);
               return;
             }
           }
@@ -221,18 +221,18 @@ export default Mn.View.extend({
             const songsWord = (num) => {
               const r100 = num % 100;
               const r10 = num % 10;
-              if(r10 >= 2 && r10 <= 4 && (r100 < 12 || r100 > 14)) {
+              if (r10 >= 2 && r10 <= 4 && (r100 < 12 || r100 > 14)) {
                 return 'песни';
               }
-              else if(r10 === 1 && r100 !== 11) {
+              else if (r10 === 1 && r100 !== 11) {
                 return 'песня';
               }
               return 'песен';
             };
             const $queries = res.map(function (searchQuery) {
               const {songs, query} = searchQuery;
-              return $$('<a href="/search/' + query + '" data-route="/search/' + query + '"/>').addClass('btn white btn-lg btn-block')
-                .text(`${query} (${songs} ${songsWord(songs)})`).click(function() {
+              return $$('<a href="/search/voice/' + query + '" data-route="/search/voice/' + query + '"/>').addClass('btn white btn-lg btn-block')
+                .text(`${query} (${songs} ${songsWord(songs)})`).click(function () {
                   $$('.modal-voice-results').modal('hide');
                 });
             });

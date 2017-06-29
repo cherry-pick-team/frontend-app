@@ -85,6 +85,12 @@ export default Mn.View.extend({
     });
   },
 
+  pageSearchVoice: function (query) {
+    this.showPage('search-query-voice:' + query, () => {
+      return new SearchResultsPage({query, voice: true});
+    });
+  },
+
   pageTrends: function () {
     this.showPage('trends', () => {
       return new TrendsPage();

@@ -24,11 +24,12 @@ const api = {
     })
   },
 
-  getSearch: function (onComplete, query) {
+  getSearch: function (onComplete, query, strict = false) {
     $$.ajax({
       url: baseUri + 'search',
       data: {
         query: query,
+        strict: strict ? 1 : 0,
       },
       method: 'GET',
       complete: onComplete

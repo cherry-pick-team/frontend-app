@@ -25,7 +25,7 @@ export default Mn.View.extend({
         this.setItems([]);
       }
       this.setLoading(false);
-    }.bind(this), options.query);
+    }.bind(this), options.query, options.voice);
   },
 
   setLoading: function (loading = true) {
