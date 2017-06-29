@@ -4,6 +4,19 @@
 @import 'vendor/scss/app';
 @import 'vendor/scss/theme/info';
 @import 'fonts';
-
 @import 'vendor/mediaelement/mediaelementplayer.min';
 @import 'vendor/mediaelement/mep';
+
+.p-a-only-md {
+  padding: 3rem;
+
+  @media(max-width: 550px) {
+    padding: .4rem;
+  }
+}
+
+.lead {
+  @media(max-width: 550px) {
+    font-size: 1rem;
+  }
+}
