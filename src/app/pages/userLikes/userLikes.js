@@ -19,16 +19,15 @@ export default Mn.View.extend({
     api.addAuthCallback(function () {
       if (!api.isAuth()) {
         Bn.history.navigate('', true);
-        return;
       }
-
-      api.getLikes(function (data, status) {
-        if (status === 'success') {
-          this.setItems(data.responseJSON);
-        }
-        this.setLoading(false);
-      }.bind(this), 1, this.options.limit);
     }.bind(this));
+
+    api.getLikes(function (data, status) {
+      if (status === 'success') {
+        this.setItems(data.responseJSON);
+      }
+      this.setLoading(false);
+    }.bind(this), 1, this.options.limit);
   },
 
   setLoading: function (loading = true) {
