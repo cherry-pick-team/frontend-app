@@ -34,6 +34,17 @@
                     </div>
                     <div class="item-author text-sm text-ellipsis">
                       <span class="text-muted">{{ singers }}</span>
+
+                      {{#if videoUrl}}
+                        <a href="{{ videoUrl }}" target="_blank" class="btn btn-sm btn-icon b-black m-l-1">
+                          <i class="fa fa-youtube"></i>
+                        </a>
+                      {{/if}}
+                      {{#if iTunesUrl}}
+                        <a href="{{ iTunesUrl }}" target="_blank" class="btn btn-sm btn-icon b-black">
+                          <i class="fa fa-apple"></i>
+                        </a>
+                      {{/if}}
                     </div>
                     <div class="text-right text-muted"></div>
                   </div>
