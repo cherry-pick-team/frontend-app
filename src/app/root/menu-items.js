@@ -23,6 +23,16 @@ const menu = [
         icon: 'queue_music',
       }
     }
+  },
+  {
+    title: '',
+    items: {
+      copyrights: {
+        title: 'О проекте',
+        url: '/copyrights',
+        icon: 'info',
+      }
+    }
   }
 ];
 

@@ -8,6 +8,7 @@ import SearchResultsPage from '../pages/searchResults/searchResults'
 import TrendsPage from '../pages/trends/trends'
 import CollectionPage from '../pages/collection/collection'
 import UserLikesPage from '../pages/userLikes/userLikes'
+import CopyrightsPage from '../pages/copyrights/copyrights'
 import AuthPanel from '../auth-panel/auth-panel'
 
 import player from '../player'
@@ -106,6 +107,12 @@ export default Mn.View.extend({
   pageUserLikes: function () {
     this.showPage('likes', () => {
       return new UserLikesPage();
+    });
+  },
+
+  pageCopyrights: function() {
+    this.showPage('copyrights', () => {
+      return new CopyrightsPage();
     });
   },
 
