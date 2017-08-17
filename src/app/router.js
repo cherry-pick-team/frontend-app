@@ -9,6 +9,7 @@ export default Mn.AppRouter.extend({
     'trends': 'pageTrends',
     'collection': 'pageCollection',
     'likes': 'pageUserLikes',
+    'copyrights/:lang': 'pageCopyrights',
     'copyrights': 'pageCopyrights',
 
     '*notFound': 'pageNotFound',

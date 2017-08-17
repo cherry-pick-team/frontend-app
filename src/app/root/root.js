@@ -110,9 +110,9 @@ export default Mn.View.extend({
     });
   },
 
-  pageCopyrights: function() {
-    this.showPage('copyrights', () => {
-      return new CopyrightsPage();
+  pageCopyrights: function (lang = '') {
+    this.showPage('copyrights' + lang, () => {
+      return new CopyrightsPage({lang,});
     });
   },
 
