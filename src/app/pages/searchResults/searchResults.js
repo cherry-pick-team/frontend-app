@@ -63,6 +63,8 @@ export default Mn.View.extend({
         songUrl: api.getCropUrl(item.mongo_id),
         chunks: resChunks,
         like: item.like,
+        videoUrl: item.video_link,
+        iTunesUrl: item.itunes_link,
       };
       itemInfo.json = JSON.stringify(itemInfo);
       return itemInfo;

@@ -41,6 +41,8 @@ export default Mn.View.extend({
         songUrl: api.getCropUrl(item.song.mongo_id),
         count: item.count,
         like: item.like,
+        videoUrl: item.video_link,
+        iTunesUrl: item.itunes_link,
       };
       itemInfo.json = JSON.stringify(itemInfo);
 

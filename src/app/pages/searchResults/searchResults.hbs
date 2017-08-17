@@ -42,7 +42,20 @@
                   </div>
                   <h5 class="m-b">{{ item.singers }}</h5>
                   {{#if item.albumTitle}}
-                    <h6 class="m-b"><span class="text-muted">Альбом</span> {{ item.albumTitle }}</h6>{{/if}}
+                    <h6 class="m-b"><span class="text-muted">Альбом</span> {{ item.albumTitle }}</h6>
+                  {{/if}}
+                  <div class="btn-group">
+                    {{#if item.videoUrl}}
+                      <a href="{{ item.videoUrl }}" target="_blank" class="btn btn-outline b-black text-md">
+                        <i class="fa fa-youtube"></i> Видео
+                      </a>
+                    {{/if}}
+                    {{#if item.iTunesUrl}}
+                      <a href="{{ item.iTunesUrl }}" target="_blank" class="btn btn-outline b-black text-md">
+                        <i class="fa fa-apple"></i> iTunes
+                      </a>
+                    {{/if}}
+                  </div>
                 </div>
               </div>
             </div>
