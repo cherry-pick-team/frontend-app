@@ -1,9 +1,25 @@
+import Bn from 'backbone'
 import Mn from 'backbone.marionette'
 import template from './searchResults.hbs'
 import api from '../../api'
 
+const $$ = Bn.$;
+
 export default Mn.View.extend({
   template: template,
+
+  ui: {
+    buttonHelp: '#button-search-help',
+  },
+
+  events: {
+    'click @ui.buttonHelp': 'onClickHelp',
+  },
+
+  onClickHelp: function (e) {
+    e.preventDefault();
+    $$('.modal-search-help').modal('show');
+  },
 
   templateContext: function () {
     return this.options;
