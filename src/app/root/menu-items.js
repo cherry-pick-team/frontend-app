@@ -33,6 +33,17 @@ const menu = [
         icon: 'info',
       }
     }
+  },
+  {
+    title: 'Партнеры',
+    items: {
+      visearch: {
+        title: 'Поиск видео',
+        url: 'https://visear.ch/',
+        icon: 'videocam',
+        original: true,
+      }
+    }
   }
 ];
 

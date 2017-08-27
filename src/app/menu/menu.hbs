@@ -5,10 +5,10 @@
     </li>
     {{#each items}}
       <li>
-        <a href="{{ url }}" data-route="{{ @key }}">
-      <span class="nav-icon">
-        <i class="material-icons">{{ icon }}</i>
-      </span>
+        <a href="{{ url }}" {{#unless original}} data-route="{{ @key }}" {{/unless}} {{#if original}}target="_blank"{{/if}}>
+          <span class="nav-icon">
+            <i class="material-icons">{{ icon }}</i>
+          </span>
           <span class="nav-text">{{ title }}</span>
         </a>
       </li>
