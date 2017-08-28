@@ -42,6 +42,7 @@ const menu = [
         url: 'https://visear.ch/',
         icon: 'videocam',
         original: true,
+        style: 'background-color: #fff176; color: #000; opacity: .9',
       }
     }
   }

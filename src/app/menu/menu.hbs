@@ -5,7 +5,8 @@
     </li>
     {{#each items}}
       <li>
-        <a href="{{ url }}" {{#unless original}} data-route="{{ @key }}" {{/unless}} {{#if original}}target="_blank"{{/if}}>
+        <a href="{{ url }}" {{#unless original}} data-route="{{ @key }}" {{/unless}}
+          {{#if original}}target="_blank"{{/if}} {{#if style}}style="{{ style }}"{{/if}}>
           <span class="nav-icon">
             <i class="material-icons">{{ icon }}</i>
           </span>
